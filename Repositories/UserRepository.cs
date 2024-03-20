@@ -30,7 +30,7 @@ namespace WebApi_01.Repositories
             }
             else
             {
-
+                
                 _context.Users.Add(user);
                 _context.SaveChanges();
                 
@@ -41,6 +41,14 @@ namespace WebApi_01.Repositories
         {
             return _context.Users.Any(u => u.Id == userId);
         }
+        public bool UserExist(string name)
+        {
+            return _context.Users.Any(u => u.Name == name);
+        }
 
+        public User GetByName(string name)
+        {
+            return _context.Users.FirstOrDefault(u => u.Name == name);
+        }
     }
 }

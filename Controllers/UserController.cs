@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BCrypt.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi_01.Dto;
 using WebApi_01.Entities;
 using WebApi_01.Intefaces;
 
@@ -10,7 +12,7 @@ namespace WebApi_01.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;   
         public UserController(IUserRepository userRepository)
         {
             this._userRepository = userRepository;
@@ -47,7 +49,6 @@ namespace WebApi_01.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(User),200)]
         public IActionResult CreateUser(User user)
         {
             var u = _userRepository.CreateUser(user);
@@ -55,5 +56,8 @@ namespace WebApi_01.Controllers
                 return BadRequest(ModelState);
             return Ok(u.Name);
         }
+
+
+        
     }
 }
